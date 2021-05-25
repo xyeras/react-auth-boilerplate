@@ -8,9 +8,22 @@ type User = {
     deletedAt?: Date;
 }
 
+type Creds = {
+    email:string;
+    password:string;
+}
+
 type InitialStateType = {
     users: User [];
     user: User | undefined;
     alert: boolean;
     saveUser: (user:User) => void;
+}
+
+
+type AuthStateType = {
+    alert: string;
+    loading:boolean;
+    error: string;
+    userLogin: (creds:Creds) => void;
 }

@@ -1,23 +1,12 @@
 import { useState, useEffect, FormEvent, useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const RegistrationPage = () => {
-  const { alert, saveUser } = useContext(GlobalContext);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { error, loading } = useContext(AuthContext);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    let user = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
-    saveUser(user);
   };
 
   return (
@@ -29,22 +18,12 @@ const RegistrationPage = () => {
       </div>
       <div className='row'>
         <div className='col-md-6 offset-md-3'>
-          {alert ? (
-            <div className='alert alert-primary' role='alert'>
-              Saved!
-            </div>
-          ) : (
-            ''
-          )}
-
           <form action=''>
             <div className='form-group my-3'>
               <input
                 type='text'
                 className='form-control'
                 placeholder='First Name'
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
               />
             </div>
             <div className='form-group my-3'>
@@ -52,26 +31,16 @@ const RegistrationPage = () => {
                 type='text'
                 className='form-control'
                 placeholder='Last Name'
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
               />
             </div>
             <div className='form-group my-3'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Email'
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
+              <input type='text' className='form-control' placeholder='Email' />
             </div>
             <div className='form-group my-3'>
               <input
                 type='password'
                 className='form-control'
                 placeholder='Password'
-                value={password}
-                onChange={e => setPassword(e.target.value)}
               />
             </div>
             <div className='d-grid'>

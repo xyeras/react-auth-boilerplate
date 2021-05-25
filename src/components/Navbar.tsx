@@ -1,6 +1,23 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    isLoggedIn();
+  }, [location]);
+
+  const isLoggedIn = () => {
+    let token = localStorage.getItem('token');
+    return !!token;
+  };
+
+  const userLogout = () => {
+    // log user out
+    // send user to login page
+  };
+
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container-fluid'>
@@ -20,7 +37,15 @@ const Navbar = () => {
 
         {/* Cart Icon */}
         <div className='sh-cart-icon'>
-          <div className='navbar-nav'></div>
+          <div className='navbar-nav'>
+            {isLoggedIn() ? (
+              <button className='btn btn-secondary' onClick={userLogout}>
+                Logout
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
     </nav>
