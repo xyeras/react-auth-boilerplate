@@ -1,12 +1,27 @@
 import { useState, useEffect, FormEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { GlobalContext } from '../../context/GlobalContext';
 import { AuthContext } from '../../context/AuthContext';
 
 const RegistrationPage = () => {
-  const { error, loading } = useContext(AuthContext);
-
+  const { error, loading, alert, userRegistration } = useContext(AuthContext);
+  const [formData, setFormData] = useState<User>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+  
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    userRegistration(formData);
+
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''});
+
   };
 
   return (
@@ -17,13 +32,15 @@ const RegistrationPage = () => {
         </div>
       </div>
       <div className='row'>
-        <div className='col-md-6 offset-md-3'>
+        <div className='col-md-6 offset-md-3'> 
           <form action=''>
             <div className='form-group my-3'>
               <input
                 type='text'
                 className='form-control'
                 placeholder='First Name'
+                value={formData.firstName}
+                onChange={e => setFormData({...formData, firstName: e.target.value})}
               />
             </div>
             <div className='form-group my-3'>
@@ -31,16 +48,26 @@ const RegistrationPage = () => {
                 type='text'
                 className='form-control'
                 placeholder='Last Name'
+                value={formData.lastName}
+                onChange={e => setFormData({...formData, lastName: e.target.value})}
               />
             </div>
             <div className='form-group my-3'>
-              <input type='text' className='form-control' placeholder='Email' />
+              <input
+                type='text'
+                className='form-control'
+                placeholder='Email'
+                value={formData.email}
+                onChange={e => setFormData({...formData, email: e.target.value})}
+                />
             </div>
             <div className='form-group my-3'>
               <input
                 type='password'
                 className='form-control'
                 placeholder='Password'
+                value={formData.password}
+                onChange={e => setFormData({...formData, password: e.target.value})}
               />
             </div>
             <div className='d-grid'>
@@ -59,6 +86,13 @@ const RegistrationPage = () => {
             Already registered?{' '}
             <Link to='/auth/login'>Click here to Login!</Link>
           </div>
+          {alert ? (
+            <div className='alert alert-success my-3' role='alert'>
+              {alert}
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>
