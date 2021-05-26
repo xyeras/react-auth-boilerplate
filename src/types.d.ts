@@ -17,6 +17,7 @@ type InitialStateType = {
     users: User [];
     user: User | undefined;
     alert: boolean;
+    getUsers: () => void;
     saveUser: (user:User) => void;
 }
 
