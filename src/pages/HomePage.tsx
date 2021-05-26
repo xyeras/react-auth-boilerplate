@@ -7,6 +7,7 @@ const HomePage = () => {
   
   useEffect(() => {
     getUsers();
+    console.log(users);
   }, []);
 
   return (
@@ -23,8 +24,8 @@ const HomePage = () => {
         <div className='col-6 offset-3'>
           <ul className='list-group'>
             {/* Render Users in App */}
-            {users.map((user:User, i:number) => {
-              <li key={i}>{user.firstName}{' '}{user.lastName}</li>
+            {users?.map((user:User, i:number) => {
+              return <li className='list-unstyled display-6 my-2' key={i}>{user.firstName}{' '}{user.lastName}</li>
             })}
           </ul>
         </div>

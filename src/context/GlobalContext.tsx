@@ -29,8 +29,8 @@ export const GlobalProvider: React.FC = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      let { data } = await instance.get('/');
-      dispatch({ type: 'GET_USERS', payload: data.users });
+      let { data } = await instance.get('/user');
+      dispatch({ type: 'GET_USERS', payload: data });
       console.log(data);
     } catch (e) {
       console.log(e);
